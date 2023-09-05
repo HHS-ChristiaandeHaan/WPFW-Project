@@ -4,6 +4,15 @@ class GebruikerContext
 {
     private List<Gebruiker> gebruikers = new List<Gebruiker>();
 
+
+    public Gebruiker GetGebruiker(string email, string wachtwoord)
+    {
+        if (gebruikers.FindIndex(a => a.Email == email) != -1 && gebruikers.FindIndex(a => a.Wachtwoord == wachtwoord) != -1)
+        {
+            return GetGebruiker(gebruikers.FindIndex(a => a.Email == email));
+        }
+        return null;
+    }
     public int AantalGebruikers()
     {
         return gebruikers.Count();
@@ -14,8 +23,10 @@ class GebruikerContext
         return gebruikers[i];
     }
 
-    public void NieuweGebruiker(string wachtwoord, string email)
+    public Gebruiker NieuweGebruiker(string wachtwoord, string email)
     {
-        gebruikers.Add(new Gebruiker{Wachtwoord = wachtwoord, Email = email});
+        Gebruiker gebruiker = new Gebruiker{Wachtwoord = wachtwoord, Email = email};
+        gebruikers.Add(gebruiker);
+        return gebruiker;
     }
 }
