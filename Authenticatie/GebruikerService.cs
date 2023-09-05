@@ -16,17 +16,38 @@ class GebruikerService
         Gebruiker _gebruiker = gebruikerContext.NieuweGebruiker(email,  wachtwoord);
         emailService.Email
         ("Er is een email verstuurd naar: " + _gebruiker.Email + 
-        "\n Gebruik de code: "+ " *not implemented * "+ " om te verifieeren" , _gebruiker.Email);
+        "\n Gebruik de code: "+ _gebruiker.VerificatieToken.token + " om te verifieeren" , _gebruiker.Email);
     }
 
     public bool Login (string email, string wachtwoord)
     {
-        gebruikerContext.
+        Gebruiker gebruiker = gebruikerContext.GetGebruiker(email ,wachtwoord);
+        if (gebruiker != null)
+        {
+            System.Console.WriteLine("Ingelogt");
+            return true;
+            
+        }
+        System.Console.WriteLine("Niet ingelogt");
         return false;
     }
 
-    public bool Verifieer (string email, string token)
+    public bool Verifieer (string email, string wachtwoord, string token)
     {   
+        Gebruiker gebruiker = gebruikerContext.GetGebruiker(email ,wachtwoord);
+        if (gebruiker != null)
+        {
+            if (gebruiker.VerificatieToken.token == token)
+            {
+                gebruiker.VerificatieToken = null;
+                System.Console.WriteLine("Verifieerd");
+                return true;
+            }
+            System.Console.WriteLine("Niet Verifieerd");
+            
+            return false;
+        }
+        System.Console.WriteLine("Gebruiker niet gevonden");
         return false;
     }
 
