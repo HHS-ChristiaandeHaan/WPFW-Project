@@ -1,0 +1,6 @@
+namespace Authenticatie;
+
+interface IEmailService
+{
+    
+}
