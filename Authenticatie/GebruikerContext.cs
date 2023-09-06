@@ -1,6 +1,6 @@
 namespace Authenticatie;
 
-class GebruikerContext
+class GebruikerContext :IGebruikersContext
 {
     private List<Gebruiker> gebruikers = new List<Gebruiker>();
 
@@ -23,7 +23,7 @@ class GebruikerContext
         return gebruikers[i];
     }
 
-    public Gebruiker NieuweGebruiker(string wachtwoord, string email)
+    public Gebruiker NieuweGebruiker(string email, string wachtwoord)
     {
         Gebruiker gebruiker = new Gebruiker{Wachtwoord = wachtwoord, Email = email};
         gebruikers.Add(gebruiker);

@@ -11,30 +11,13 @@ class HelloWorld
 {
     static void Main(string[] args)
     {
-        // Console.WriteLine("Hello, World!\n");
-        // BoterKaasEieren boterKaasEieren = new BoterKaasEieren();
-        // boterKaasEieren.Speler();
-        // boterKaasEieren.PrintVeld();
-        // boterKaasEieren.Spel();
+        //BoterKaasEieren();
+        //Kaart();
+        AuthenticatieProgramma();
+    }
 
-        // Kaart k = new Kaart(30, 30);
-        // Pad p1 = new Pad();
-        // p1.van = new Coordinaat(2, 5);
-        // p1.van = new Coordinaat(12, 30);
-        // k.VoegPadToe(p1);
-        // Pad p2 = new Pad
-        // {
-        //     van = new Coordinaat(26, 4),
-        //     naar = new Coordinaat(10, 5)
-        // };
-        // k.VoegPadToe(p2);
-        // k.VoegItemToe(new Attractie(k, new Coordinaat(15, 15)));
-        // k.VoegItemToe(new Attractie(k, new Coordinaat(20, 15)));
-        // k.VoegItemToe(new Attractie(k, new Coordinaat(5, 18)));
-        // k.Teken(new ConsoleTekener());
-        // new ConsoleTekener().SchrijfOp(new Coordinaat(0, k.Hoogte + 1), "Deze kaart is schaal 1:1000");
-        // System.Console.Read();
-
+    public static void AuthenticatieProgramma()
+    {
         Console.WriteLine("Maak een nieuw gebruiker aan.");
         System.Console.WriteLine("Voer een email in:");
         string email = Console.ReadLine();
@@ -45,15 +28,47 @@ class HelloWorld
         EmailService emailService = new EmailService();
         GebruikerContext gebruikerContext = new GebruikerContext();
 
-        GebruikerService gebruikerService = new GebruikerService(emailService,gebruikerContext);
-        gebruikerService.Registreer(email,wachtwoord);
+        GebruikerService gebruikerService = new GebruikerService(emailService, gebruikerContext);
+        gebruikerService.Registreer("email@test", "wachtwoord");
 
         System.Console.WriteLine("Voer uw token in: ");
+        //string token = Console.ReadLine();
+        //System.Console.WriteLine(token);
+        
+
+        gebruikerService.Verifieer("email@test", "wachtwoord", "1345ABC");
+        gebruikerService.Login("email@test", "wachtwoord");
         string token = Console.ReadLine();
-        System.Console.WriteLine(token);
+        
+    }
 
-        gebruikerService.Verifieer(email, wachtwoord,token);
-        gebruikerService.Login(email,wachtwoord);
+    public static void Kaart()
+    {
+        Kaart k = new Kaart(30, 30);    
+        Pad p1 = new Pad();
+        p1.van = new Coordinaat(2, 5);
+        p1.van = new Coordinaat(12, 30);
+        k.VoegPadToe(p1);
+        Pad p2 = new Pad
+        {
+            van = new Coordinaat(26, 4),
+            naar = new Coordinaat(10, 5)
+        };
+        k.VoegPadToe(p2);
+        k.VoegItemToe(new Attractie(k, new Coordinaat(15, 15)));
+        k.VoegItemToe(new Attractie(k, new Coordinaat(20, 15)));
+        k.VoegItemToe(new Attractie(k, new Coordinaat(5, 18)));
+        k.Teken(new ConsoleTekener());
+        new ConsoleTekener().SchrijfOp(new Coordinaat(0, k.Hoogte + 1), "Deze kaart is schaal 1:1000");
+        System.Console.Read();
+    }
 
+    public static void BoterKaasEieren()
+    {
+        Console.WriteLine("Hello, World!\n");
+        BoterKaasEieren boterKaasEieren = new BoterKaasEieren();
+        boterKaasEieren.Speler();
+        boterKaasEieren.PrintVeld();
+        boterKaasEieren.Spel();
     }
 }

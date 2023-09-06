@@ -3,9 +3,9 @@ namespace Authenticatie;
 class GebruikerService 
 {
     public IEmailService emailService;
-    public GebruikerContext gebruikerContext;
+    public IGebruikersContext gebruikerContext;
     
-    public GebruikerService(IEmailService emailService, GebruikerContext gebruikerContext)
+    public GebruikerService(IEmailService emailService, IGebruikersContext gebruikerContext)
     {
         this.emailService = emailService;
         this.gebruikerContext = gebruikerContext;
@@ -24,7 +24,12 @@ class GebruikerService
         Gebruiker gebruiker = gebruikerContext.GetGebruiker(email ,wachtwoord);
         if (gebruiker != null)
         {
-            System.Console.WriteLine("Ingelogt");
+            if (gebruiker.Geverifieerd())
+            {
+                System.Console.WriteLine("Ingelogt");
+                return true;
+
+            }
             return true;
             
         }
@@ -37,14 +42,13 @@ class GebruikerService
         Gebruiker gebruiker = gebruikerContext.GetGebruiker(email ,wachtwoord);
         if (gebruiker != null)
         {
-            if (gebruiker.VerificatieToken.token == token)
+            if (gebruiker.VerificatieToken.token == token && DateTime.Compare(DateTime.Today, gebruiker.VerificatieToken.verloopDatum) <= 0)
             {
                 gebruiker.VerificatieToken = null;
                 System.Console.WriteLine("Verifieerd");
                 return true;
             }
             System.Console.WriteLine("Niet Verifieerd");
-            
             return false;
         }
         System.Console.WriteLine("Gebruiker niet gevonden");
