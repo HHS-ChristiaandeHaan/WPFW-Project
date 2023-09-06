@@ -14,8 +14,7 @@ class GebruikerService
     public void Registreer (string email, string wachtwoord)
     {   
         Gebruiker _gebruiker = gebruikerContext.NieuweGebruiker(email,  wachtwoord);
-        emailService.Email
-        ("Er is een email verstuurd naar: " + _gebruiker.Email + 
+        emailService.Email("Er is een email verstuurd naar: " + _gebruiker.Email + 
         "\n Gebruik de code: "+ _gebruiker.VerificatieToken.token + " om te verifieeren" , _gebruiker.Email);
     }
 
