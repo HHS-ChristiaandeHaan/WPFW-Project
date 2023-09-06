@@ -29,17 +29,15 @@ class HelloWorld
         GebruikerContext gebruikerContext = new GebruikerContext();
 
         GebruikerService gebruikerService = new GebruikerService(emailService, gebruikerContext);
-        gebruikerService.Registreer("email@test", "wachtwoord");
+        gebruikerService.Registreer(email, wachtwoord);
 
         System.Console.WriteLine("Voer uw token in: ");
-        //string token = Console.ReadLine();
-        //System.Console.WriteLine(token);
+        string token = Console.ReadLine();
+        System.Console.WriteLine(token);
         
 
-        gebruikerService.Verifieer("email@test", "wachtwoord", "1345ABC");
-        gebruikerService.Login("email@test", "wachtwoord");
-        string token = Console.ReadLine();
-        
+        gebruikerService.Verifieer(email, wachtwoord, token);
+        gebruikerService.Login(email, wachtwoord);        
     }
 
     public static void Kaart()
